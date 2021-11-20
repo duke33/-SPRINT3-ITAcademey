@@ -1,0 +1,24 @@
+{
+    "name": "sprint3-itacademey",
+    "version": "1.0.0",
+    "description": "Design Patterns",
+    "main": "design-patterns-1.js",
+    "scripts": {
+        "lint": "eslint .",
+        "lint fix": "eslint . --fix",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/duke33/SPRINT3-ITAcademey.git"
+    },
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/duke33/SPRINT3-ITAcademey/issues"
+    },
+    "homepage": "https://github.com/duke33/SPRINT3-ITAcademey#readme",
+    "devDependencies": {
+        "eslint": "^8.2.0"
+    }
+}
