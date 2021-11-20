@@ -1,2 +1,2 @@
-# -SPRINT3-ITAcademey
+# SPRINT3-ITAcademey
 Design Patterns 
