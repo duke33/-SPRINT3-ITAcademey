@@ -29,7 +29,7 @@ class Topic extends EventEmitter {
 
     addMessageToBoard(message, messageOwner) {
         console.log(
-            `A new message has been added to the topic ${this.topicName}`)
+            `A new message has been added to the topic "${this.topicName}"`)
         console.log('------------------------------------------------------')
         this.messageBoard.push(message)
         this.emit(this.eventName, message, messageOwner)
@@ -51,7 +51,7 @@ const user3 = new User("Maria")
 const user4 = new User("Ernestina")
 
 const itAcademyModule3 = new Topic("IT academy module 3 forum")
-const softSkills = new Topic("another topic")
+const softSkills = new Topic("Soft Skills")
 
 itAcademyModule3.subscribeUser(user3)
 itAcademyModule3.subscribeUser(user2)
