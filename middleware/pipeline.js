@@ -26,8 +26,4 @@ function pipe() {
     return { pushToStack, execute }
 }
 
-
-//---------------------------------------------
-
-
 module.exports = pipe
