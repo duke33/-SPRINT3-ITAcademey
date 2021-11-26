@@ -6,7 +6,7 @@ const { addition, subtraction, multiplication } = require("./operations")
 // create a middleware pipeline
 const pipeline = pipe()
 
-//Omar, la parte que viene ahora no se si esta bien interpretada del enunciado. En este caso, estoy haciendo uso de la llamada al siguiente middleware en la cadena, con next. Pero no estoy haciendo nada para pasar un valor a traves de toda la pipeline, modificandolo o usandolo con cada middleware y enviandolo al siguiente, que entiendo yo, es el motivo por el que existen los middlewares. Tuve que agregar la variable context que va a ser undefined para que no pete todo, porque la signature de la pipe requiere ese argumento.
+//Omar, la parte que viene ahora no se si esta bien interpretada del enunciado. En este caso, estoy haciendo uso de la llamada al siguiente middleware en la cadena, con next. Pero no estoy haciendo nada para pasar un valor a traves de toda la pipeline, modificandolo o usandolo con cada middleware y enviandolo al siguiente, que entiendo yo, es el motivo por el que existen los middlewares. Tuve que agregar la variable context para que no pete todo, porque la signature de la pipe requiere ese argumento.
 
 // add middlewares to the pipeline
 pipeline.pushToStack(
@@ -24,4 +24,5 @@ pipeline.pushToStack(
     }
 )
 
-pipeline.execute()
+//Will execute all the middlewares added to pipeline, with "Needles" as the context   
+pipeline.execute("Needles")
