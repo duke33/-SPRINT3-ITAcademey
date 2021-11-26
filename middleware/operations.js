@@ -2,7 +2,6 @@
 
 const addition = (a, b) => {
     const result = a + b
-    console.log('result: ', result)
     return result
 }
 
@@ -10,13 +9,11 @@ const addition = (a, b) => {
 
 const subtraction = (a, b) => {
     const result = a - b
-    console.log('result: ', result)
     return result
 }
 
 const multiplication = (a, b) => {
     const result = a * b
-    console.log('result: ', result)
     return result
 }
 
