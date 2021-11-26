@@ -5,8 +5,6 @@ const addition = (a, b) => {
     return result
 }
 
-
-
 const subtraction = (a, b) => {
     const result = a - b
     return result
