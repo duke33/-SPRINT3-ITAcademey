@@ -20,5 +20,8 @@
     "homepage": "https://github.com/duke33/SPRINT3-ITAcademey#readme",
     "devDependencies": {
         "eslint": "^8.2.0"
+    },
+    "dependencies": {
+        "amqplib": "^0.8.0"
     }
 }
