@@ -1,8 +1,6 @@
 var amqp = require('amqplib');
 class Subscriber {
 
-    //TODO borrar empty lines
-
     constructor(connectionString, options = {}) {
         if (!connectionString) {
             throw new Error('Connection string is required')
@@ -13,7 +11,6 @@ class Subscriber {
 
         this.connectionString = connectionString
 
-
         this.options = Object.assign({
             type: 'fanout', //probando default
             durable: false
@@ -22,7 +19,6 @@ class Subscriber {
 
     async connect() {
         console.log('connecting to RabbitMQ')
-            //TODO ponerle catch method
         try {
             this.connection = await amqp.connect(this.connectionString)
             return this.connection
@@ -32,15 +28,18 @@ class Subscriber {
     }
 
     async start() {
-
+        console.log('starting subscriber')
         this.connection = await this.connect()
         this.channel = await this.connection.createChannel()
-            // var durable = false
-        await this.channel.assertExchange(this.options.exchange, this.options.type, { durable: this.options.durable }) //TODO aca va un return, y el resto tendria que ser otra funcion
+        console.log('connected to channel')
 
+        console.log(`asserting exchange ${this.options.exchange}`)
+        await this.channel.assertExchange(this.options.exchange, this.options.type, { durable: this.options.durable })
+
+        console.log("asserting queue")
         this.myQueue = await this.channel.assertQueue("", { exclusive: true })
-
-        await this.channel.bindQueue(this.myQueue.queue, this.options.exchange, '') //TODO Error!!!!!!!!
+        console.log('binding queue:')
+        await this.channel.bindQueue(this.myQueue.queue, this.options.exchange, '')
 
         return this.channel.consume(this.myQueue.queue, function(msg) {
             if (msg.content) {
@@ -52,20 +51,14 @@ class Subscriber {
 
     }
 
-
-
 }
-
-
-//TODO add error haddling
 
 let subscriber = new Subscriber('amqp://localhost', { type: "fanout", durable: false, exchange: "logs" })
 
 //TODO ver si podes mejorar esto
-const banana = async() => {
+const makeItHappen = async() => {
     await subscriber.start()
 }
-banana()
-
+makeItHappen()
 
 //publisher.publish()
