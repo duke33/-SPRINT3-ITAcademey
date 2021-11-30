@@ -1,7 +1,7 @@
 var amqp = require('amqplib');
 class Subscriber {
 
-
+    //TODO borrar empty lines
 
     constructor(connectionString, options = {}) {
         if (!connectionString) {
@@ -16,6 +16,7 @@ class Subscriber {
 
         this.options = Object.assign({
             type: 'fanout', //probando default
+            durable: false
         }, options)
     }
 
@@ -35,7 +36,7 @@ class Subscriber {
         this.connection = await this.connect()
         this.channel = await this.connection.createChannel()
             // var durable = false
-        await this.channel.assertExchange(this.options.exchange, this.options.type, { durable: false }) //TODO aca va un return, y el resto tendria que ser otra funcion
+        await this.channel.assertExchange(this.options.exchange, this.options.type, { durable: this.options.durable }) //TODO aca va un return, y el resto tendria que ser otra funcion
 
         this.myQueue = await this.channel.assertQueue("", { exclusive: true })
 
@@ -58,7 +59,7 @@ class Subscriber {
 
 //TODO add error haddling
 
-let subscriber = new Subscriber('amqp://localhost', { type: "fanout", exchange: "logs" })
+let subscriber = new Subscriber('amqp://localhost', { type: "fanout", durable: false, exchange: "logs" })
 
 //TODO ver si podes mejorar esto
 const banana = async() => {
