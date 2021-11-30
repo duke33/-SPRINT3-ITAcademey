@@ -13,7 +13,7 @@ class Subscriber {
 
         this.options = Object.assign({
             type: 'fanout', //probando default
-            durable: false
+            durable: false //probando default
         }, options)
     }
 
