@@ -11,7 +11,6 @@ class Publisher {
             throw new Error('Exchange required')
         }
 
-        this.channel = null
         this.connectionString = connectionString
 
 
@@ -24,8 +23,8 @@ class Publisher {
         console.log('connecting to RabbitMQ')
             //TODO ponerle catch method
         try {
-            const connection = await amqp.connect(this.connectionString)
-            return connection
+            this.connection = await amqp.connect(this.connectionString)
+            return this.connection
         } catch (error) {
             console.log('failed to connect')
         }
@@ -33,18 +32,19 @@ class Publisher {
 
     async start() {
 
-        const connection = await this.connect()
-
-        this.channel = await connection.createChannel()
+        this.connection = await this.connect()
+        this.channel = await this.connection.createChannel()
             // var durable = false
-        await this.channel.assertExchange(this.options.exchange, this.options.type, { durable: false }) //TODO aca va un return, y el resto tendria que ser otra funcion
+        return await this.channel.assertExchange(this.options.exchange, this.options.type, { durable: false }) //TODO aca va un return, y el resto tendria que ser otra funcion
 
-
+    }
+    async publish(message) {
+        console.log('llega?????')
+        console.log("channel", this.channel)
 
         //TODO de aca para abajo, podria ser otro metodo como publish
-        const message = "IT-Academy!"
         console.log(" [x] Sent %s", message);
-        return this.channel.publish(this.options.exchange, "", new Buffer(message))
+        this.channel.publish(this.options.exchange, "", new Buffer(message))
 
     }
 
@@ -56,4 +56,14 @@ class Publisher {
 
 let publisher = new Publisher('amqp://localhost', { type: "fanout", exchange: "logs" })
 
-publisher.start()
+const banana = async() => {
+    await publisher.start()
+    publisher.publish("hola!")
+    publisher.publish("IT-Academy!")
+
+
+}
+banana()
+
+
+//publisher.publish()
