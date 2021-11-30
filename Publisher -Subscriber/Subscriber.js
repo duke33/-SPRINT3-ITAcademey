@@ -52,11 +52,4 @@ class Subscriber {
 }
 
 let subscriber = new Subscriber('amqp://localhost', { type: "fanout", durable: false, exchange: "logs" })
-
-//TODO ver si podes mejorar esto
-const makeItHappen = async() => {
-    await subscriber.start()
-}
-makeItHappen()
-
-//publisher.publish()
+subscriber.start()
