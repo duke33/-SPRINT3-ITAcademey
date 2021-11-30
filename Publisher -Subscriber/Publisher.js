@@ -1,8 +1,6 @@
 var amqp = require('amqplib');
 class Publisher {
 
-    //TODO sacar las lineas extras
-
     constructor(connectionString, options = {}) {
         if (!connectionString) {
             throw new Error('Connection string is required')
@@ -19,7 +17,7 @@ class Publisher {
         }, options)
     }
 
-    async connect() { //TODO devolver una promise con resolve aca a ver si te evitas el lio de la llamada
+    async connect() {
         console.log('connecting to RabbitMQ')
         try {
             this.connection = await amqp.connect(this.connectionString)
@@ -52,16 +50,15 @@ class Publisher {
 
 }
 
-let publisher = new Publisher('amqp://localhost', { type: "fanout", exchange: "logs", durable: false }) // Le paso fanout solo para probar, pero no es necesario porque es el que usa por defecto si no se pasa el tipo de exchange, lo mismo para  durable 
+let publisher = new Publisher('amqp://localhost', { type: "fanout", exchange: "logs", durable: false })
+    // Le paso fanout solo para probar, pero no es necesario porque es el que usa por defecto si no se pasa el tipo de exchange, lo mismo para  durable 
 
-//TODO reaname esto 
+//TODO agregar aca la duda que tenes
 
-const banana = async() => {
+const makeItHappen = async() => {
     await publisher.start()
     publisher.publish("hola!")
     publisher.publish("IT-Academy!")
 
 }
-banana()
-
-//publisher.publish()
+makeItHappen()
