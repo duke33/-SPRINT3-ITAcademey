@@ -38,19 +38,17 @@ class Subscriber {
 
         console.log("asserting queue")
         this.myQueue = await this.channel.assertQueue("", { exclusive: true })
-        console.log('binding queue:')
         await this.channel.bindQueue(this.myQueue.queue, this.options.exchange, '')
+        console.log('queue binded')
 
         return this.channel.consume(this.myQueue.queue, function(msg) {
             if (msg.content) {
-                console.log(" [x] %s", msg.content.toString());
+                console.log("\n [x] %s", msg.content.toString());
             }
         }, {
             noAck: true
         })
-
     }
-
 }
 
 let subscriber = new Subscriber('amqp://localhost', { type: "fanout", durable: false, exchange: "logs" })
