@@ -53,7 +53,27 @@ class Publisher {
 let publisher = new Publisher('amqp://localhost', { type: "fanout", exchange: "logs", durable: false })
     // Le paso fanout solo para probar, pero no es necesario porque es el que usa por defecto si no se pasa el tipo de exchange, lo mismo para  durable 
 
-//TODO agregar aca la duda que tenes
+
+
+//TODO Omar, esto me gustaria hablarlo en algun momento, tuve que hacer esta llamada que ves abajo media chapucera para que funcione. No se si es la forma correcta de hacerlo, o se me esta escapando un concepto importante de promises y await. Cuando me hagas la devolucion te voy a preguntar
+
+// ┈┈╱▔▔▔▔▔╲┈┈┈HM┈HM
+// ┈╱┈┈╱▔╲╲╲▏┈┈┈HMMM
+// ╱┈┈╱━╱▔▔▔▔▔╲━╮┈┈
+// ▏┈▕┃▕╱▔╲╱▔╲▕╮┃┈┈
+// ▏┈▕╰━▏▊▕▕▋▕▕━╯┈┈
+// ╲┈┈╲╱▔╭╮▔▔┳╲╲┈┈┈
+// ┈╲┈┈▏╭━━━━╯▕▕┈┈┈
+// ┈┈╲┈╲▂▂▂▂▂▂╱╱┈┈┈
+// ┈┈┈┈▏┊┈┈┈┈┊┈┈┈╲┈
+// ┈┈┈┈▏┊┈┈┈┈┊▕╲┈┈╲
+// ┈╱▔╲▏┊┈┈┈┈┊▕╱▔╲▕
+// ┈▏ ┈┈┈╰┈┈┈┈╯┈┈┈▕▕
+// ┈╲┈┈┈╲┈┈┈┈╱┈┈┈╱┈╲
+// ┈┈╲┈┈▕▔▔▔▔▏┈┈╱╲╲╲▏
+// ┈╱▔┈┈▕┈┈┈┈▏┈┈▔╲▔▔
+// ┈╲▂▂▂╱┈┈┈┈╲▂▂▂╱┈
+
 
 const makeItHappen = async() => {
     await publisher.start()
