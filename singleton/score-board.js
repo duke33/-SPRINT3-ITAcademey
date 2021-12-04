@@ -24,7 +24,7 @@ class ScoreBoard {
     }
 
     showWinner() {
-        console.log(`The Winer is ${this.sort()[0].name}!!!!!!`)
+        console.log(`The Winner is ${this.sort()[0].name}!!!!!!`)
     }
 
     showScore() {
