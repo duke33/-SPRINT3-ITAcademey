@@ -67,3 +67,5 @@ Game.addOrSubstractPoints("Pepe", 5)
 
 Game.showScore()
 Game.showWinner()
+
+module.exports= ScoreBoard
