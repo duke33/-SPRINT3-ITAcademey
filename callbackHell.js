@@ -22,10 +22,16 @@ const reverseText = str =>
 const promiseHeaven = async() => {
     try {
         let files = await readdir(inbox).catch(e => console.log("Error: Folder inaccessible: ", e.message));
-
+        
         for (let file of files) {
-            let text = await readFile(join(inbox, file), 'utf8').catch(e => console.log('Error: File error: ', e.message));
-            await writeFile(join(outbox, file), reverseText(text)).catch(e => console.log('Error: File could not be saved!: ', e.message));
+            let fileInputLocation = join(inbox, file)
+            let fileOutputLocation = join(outbox, file)
+            //Read the file content
+            let text = await readFile(fileInputLocation, 'utf8').catch(e => console.log('Error: File error: ', e.message));
+            //Reverse the file content
+            let reversedText = reverseText(text)
+            //Write reversed content to file and save it to folder
+            await writeFile(fileOutputLocation, reversedText).catch(e => console.log('Error: File could not be saved!: ', e.message));
             console.log(`${file} was successfully saved in the outbox!`)
         }
     } catch (err) {
