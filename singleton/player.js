@@ -1,7 +1,7 @@
 class Player {
 
   constructor(playerName){
-    this.playerName = playerName
+    this.name = playerName
   }
 }
 
