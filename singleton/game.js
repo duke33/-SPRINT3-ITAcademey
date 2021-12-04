@@ -1,5 +1,4 @@
-var scoreBoard = require('score-board');
-var Player = require('player');
+const ScoreBoard = require('./score-board.js');
 
 class Game{
   constructor(){
@@ -9,16 +8,17 @@ class Game{
 }
 
   joinGame(Player) {
-    if (this.playersInGame.some(name => name === Player.name)) {
-        console.log(`${Player.name} player has already joined the Game!`)
+    //TODO tal vez borrar este playersInGame y pasar toda la logic esa la board, porque es innecesario
+    if (this.gameScoreBoard.board.some(e => e.name === Player.name)) {
+        console.log(`${Player.name} has already joined the Game!`)
 
-    } else {// aca hay que poner el board!!!
-        this.playersInGame.push({ name: Player.name, points: 0 })
-        this.gameScoreBoard.board.push({ Player, points: 0 })
+    } else {
+        this.gameScoreBoard.board.push({ name: Player.name, points: 0 })
 
     }
 }
 
-
-
 }
+
+module.exports =Game
+
