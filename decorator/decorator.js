@@ -1,40 +1,56 @@
-//Crea un Decorator en un archivo que devuelva una función. Esta función realizará una conversión de moneda a euros multiplicando por el coeficiente de conversión del archivo adjunto currency_conversions.json  en función de la divisa original
+const conversions = require("./currency_conversions.json");
 
-//Creo que hay un millon de formas de hacerlo, aca explico el razonamiento de la mia. Tengo una funcion simple (applyFactor) que hace una multiplicacion de dos factores. Quiero extender la funcionalidad para que haga una conversion de precios desde distintas monedas a euros, y para lograr esto voy a hacerlo con un decorator. Otro decorator podria por ejemplo, extender la funcionalidad para calcular los impuestos de un producto. Como el caso es sencillo, la implementacion del decorator solo requiere una funcion dentro de otra funcion. 
+let products = [
+  { product: "car", price: "17452", moneda: "cad" },
+  { product: "banana", price: "52", moneda: "jpy" },
+  { product: "apple", price: "2", moneda: "gbp" },
+  { product: "monkey", price: "6000", moneda: "cny" },
+];
 
-const conversions = require('./currency_conversions.json')
-
-let applyFactor = (price, factor) => {
-    return price * factor
+class Product {
+  constructor(name, price, currency) {
+    this.name = name;
+    this.price = price;
+    this.currency = currency.toUpperCase();
+  }
+  getCantidad() {
+    console.log(`son ${this.price} ${this.name}`);
+  }
 }
 
-let currencyToEuroDecorator = (apply, currencyAcronym, price) => {
-    const conversionFactorValue = conversions[currencyAcronym.concat("_EUR")]
-    return apply(price, conversionFactorValue)
-
+class ConvertProduct extends Product {
+  constructor(name, price, currency) {
+    super(name, price, currency);
+  }
+  getInEur() {
+    let value;
+    let key = Object.entries(conversions);
+    if (this.currency == "EUR") {
+      console.log(` ${value}`);
+    } else {
+      key.forEach((el) => {
+        if (el[0].slice(0, 3) == this.currency) {
+          value = el[1] * this.price;
+        }
+      });
+    }
+    console.log(
+      `\n ${this.name} costs ${this.price} ${
+        this.currency
+      } equal to: ${value.toFixed(2)} EUR`
+    );
+  }
 }
 
-//------------------------------------------------------------------------------------
-
-//Crea una pequeña aplicación que calcule el coste de varios Artículos en euros a partir de sus divisas inciales, aplicando diferentes conversiones que usen el Decorator del punto anterior.
-
-//Esta aplicacion lo que hace es recibir un array de objetos que tienen nombre del producto, precio y moneda en la que esta expresada el precio. Convierte todos los precios de los productos a euros, devolviendo el un nuevo array igual an anterior que ahora demas contiene el precio en euros como ultima key:value pair para cada producto.
-
-//Como la funcion va a depender totalmente del formato en que se pasen los productos, precios y monedas, es lo primero que voy a definir.
-
-const priceListToBeConvertedToEuro = [
-    { productName: "bananas", price: 2, currencyAcronym: "GBP" },
-    { productName: "pears", price: 3, currencyAcronym: "CHF" },
-    { productName: "strawberry", price: 10, currencyAcronym: "CAD" },
-    { productName: "watermelon", price: 7, currencyAcronym: "CNY" }
-
-]
-
-let convertListOfPricesToEuro = (listOfPrices) => {
-    const listOfPricesInEU = listOfPrices.map(v => ({...v, priceInEU: currencyToEuroDecorator(applyFactor, v.currencyAcronym, v.price) }))
-    return listOfPricesInEU
+function calculatePrices(products) {
+  return products.map((element) => {
+    let prod = new ConvertProduct(
+      element.product,
+      element.price,
+      element.moneda
+    );
+    prod.getInEur();
+  });
 }
 
-console.log('---------------------')
-    //El array de productos que ahora incorpora los precioes en euros:
-console.log(convertListOfPricesToEuro(priceListToBeConvertedToEuro))
+calculatePrices(products);
